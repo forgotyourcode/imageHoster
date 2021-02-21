@@ -118,7 +118,7 @@ public class ImageController {
         Integer userId = image.getUser().getId();
         User user = (User) session.getAttribute("loggeduser");
         Integer loggedInUserId = user.getId();
-        if(!userId.equals(loggedInUserId)) {
+        if (!userId.equals(loggedInUserId)) {
             model.addAttribute("editError", error);
             model.addAttribute("image", image);
         } else {
@@ -176,7 +176,7 @@ public class ImageController {
         User user = (User) session.getAttribute("loggeduser");
         Integer loggedInUserId = user.getId();
 
-        if(!userId.equals(loggedInUserId)) {
+        if (!userId.equals(loggedInUserId)) {
             model.addAttribute("deleteError", error);
             model.addAttribute("image", image);
         } else {

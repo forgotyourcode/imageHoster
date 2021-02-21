@@ -44,7 +44,7 @@ public class UserController {
     @RequestMapping(value = "users/registration", method = RequestMethod.POST)
     public String registerUser(User user, Model model) {
         boolean isStrong = userService.isPasswordStrong(user.getPassword());
-        if(isStrong) {
+        if (isStrong) {
             userService.registerUser(user);
             return "redirect:/users/login";
         } else {
