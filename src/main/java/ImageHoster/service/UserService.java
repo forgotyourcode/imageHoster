@@ -11,6 +11,9 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordValidator passwordValidator;
+
     //Call the registerUser() method in the UserRepository class to persist the user record in the database
     public void registerUser(User newUser) {
         userRepository.registerUser(newUser);
@@ -32,4 +35,7 @@ public class UserService {
         }
     }
 
+    public boolean isPasswordStrong(String password) {
+        return passwordValidator.validate(password);
+    }
 }

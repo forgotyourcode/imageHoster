@@ -1,5 +1,6 @@
 package ImageHoster.repository;
 
+import ImageHoster.model.Comment;
 import ImageHoster.model.Image;
 import org.springframework.stereotype.Repository;
 
@@ -110,4 +111,26 @@ public class ImageRepository {
         }
     }
 
+    public void addImageComment(Comment comment) {
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+
+        try {
+            transaction.begin();
+            em.merge(comment);
+            transaction.commit();
+        } catch (Exception e) {
+            transaction.rollback();
+        }
+    }
+
+    public List<Comment> getImageComments(String imageId, String title) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<Comment> typedQuery = em.createQuery("SELECT c from Comment c where c.image.title =:title and c.image.id =:imageId", Comment.class).setParameter("title", title).setParameter("imageId", Integer.valueOf(imageId));
+            return typedQuery.getResultList();
+        } catch (NoResultException nre) {
+            return null;
+        }
+    }
 }
